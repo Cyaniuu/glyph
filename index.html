@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft特殊符号</title>
+    <style>
+        .library-container {
+            margin: 30px 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 20px;
+        }
+
+        .glyph-container {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 2px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 5px;
+            background: #c6c6c6;
+            border-radius: 5px;
+        }
+
+        .glyph-item {
+            aspect-ratio: 1;
+            background: #8a8a8a79;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .glyph-item:hover {
+            background: #6aac43;
+            transform: scale(1.1);
+            z-index: 2;
+            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+        }
+
+        .glyph-preview {
+            width: 80%;
+            height: 80%;
+            image-rendering: pixelated;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            display: none;
+        }
+
+        .glyph-item:hover .tooltip {
+            display: none;
+        }
+
+        #notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            display: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        h3 {
+            text-align: center;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center; color: #4CAF50;">Minecraft特殊符号</h2>
+    <div id="librariesContainer"></div>
+    <div id="notification">已复制到剪贴板！</div>
+
+<script>
+const LIBRARIES = [
+    {
+        title: "基础方块库（含256个元素）",
+        unicodeStart: 0xF000,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F0.png",
+        specialTexts: {}
+    },
+    {
+        title: "建筑装饰库（含个井）",
+        unicodeStart: 0xF100,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F1.png",
+        specialTexts: {255: "个井"}
+    },
+    {
+        title: "TNT特殊物品库",
+        unicodeStart: 0xF200,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F2.png",
+        specialTexts: {0: "TNT", 1: "RT"}
+    },
+    {
+        title: "综合材料库",
+        unicodeStart: 0xF300,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F3.png",
+        specialTexts: {}
+    },
+    {
+        title: "厨具食材库",
+        unicodeStart: 0xF400,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F4.png",
+        specialTexts: {}
+    },
+    {
+        title: "工具装备库（含数字9）",
+        unicodeStart: 0xF500,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F5.png",
+        specialTexts: {9: "9"}
+    },
+    {
+        title: "魔法物品库",
+        unicodeStart: 0xF600,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F6.png",
+        specialTexts: {}
+    },
+    {
+        title: "小八特别收藏库",
+        unicodeStart: 0xF700,
+        gridSize: 16,
+        imagePath: "/server-glyphs/glyph_F7.png",
+        specialTexts: {0: "小八"}
+    }
+];
+
+function initLibraries() {
+    const container = document.getElementById('librariesContainer');
+    
+    LIBRARIES.forEach((lib, index) => {
+        const libContainer = document.createElement('div');
+        libContainer.className = 'library-container';
+        
+        const title = document.createElement('h3');
+        title.textContent = lib.title;
+        libContainer.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'glyph-container';
+        libContainer.appendChild(grid);
+        
+        container.appendChild(libContainer);
+        initSingleLibrary(lib, grid);
+    });
+}
+
+function initSingleLibrary(config, container) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.crossOrigin = "Anonymous";
+    img.onload = function() {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        const cellSize = img.width / config.gridSize;
+        
+        for(let i = 0; i < config.gridSize ** 2; i++) {
+            const col = i % config.gridSize;
+            const row = Math.floor(i / config.gridSize);
+            
+            const item = document.createElement('div');
+            item.className = 'glyph-item';
+            
+            const previewCanvas = document.createElement('canvas');
+            previewCanvas.width = 16;
+            previewCanvas.height = 16;
+            const previewCtx = previewCanvas.getContext('2d');
+            
+            previewCtx.drawImage(
+                canvas,
+                col * cellSize,
+                row * cellSize,
+                cellSize,
+                cellSize,
+                0,
+                0,
+                16,
+                16
+            );
+
+            const specialText = config.specialTexts[i] || '';
+            const positionInfo = `位置：(${col + 1}, ${row + 1})`;
+            const unicodeInfo = `Unicode：U+${(config.unicodeStart + i).toString(16).toUpperCase()}`;
+            const textInfo = specialText ? `文字：${specialText}` : '';
+
+            item.innerHTML = `
+                <img class="glyph-preview" src="${previewCanvas.toDataURL()}">
+                <div class="tooltip">
+                    ${positionInfo}<br>
+                    ${unicodeInfo}<br>
+                    ${textInfo}
+                </div>
+            `;
+
+            // 修改后的点击事件处理
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                const codePoint = config.unicodeStart + i;
+                const char = String.fromCodePoint(codePoint);
+                
+                // 创建临时输入框
+                const tempInput = document.createElement('textarea');
+                tempInput.value = char;
+                document.body.appendChild(tempInput);
+                
+                // 兼容移动端选区
+                if (navigator.userAgent.match(/iphone|ipod|ipad/i)) {
+                    const range = document.createRange();
+                    range.selectNodeContents(tempInput);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    tempInput.setSelectionRange(0, 999999);
+                } else {
+                    tempInput.select();
+                }
+                
+                try {
+                    document.execCommand('copy');
+                    showNotification();
+                } catch (err) {
+                    console.error('复制失败:', err);
+                }
+                
+                document.body.removeChild(tempInput);
+            });
+
+            container.appendChild(item);
+        }
+    };
+    img.src = config.imagePath;
+}
+
+function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 2000);
+}
+
+window.addEventListener('DOMContentLoaded', initLibraries);
+</script>
+</body>
+</html>
