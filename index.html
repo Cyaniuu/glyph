@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 通过 jsDelivr 引用 -->
 <link href="https://cdn.jsdelivr.net/npm/unifont-js@latest/dist/unifont.woff2" rel="preload" as="font">
-<link rel="preload" href="../fonts/unifont.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="./fonts/unifont.otf" as="font" type="font/otf" crossorigin>
     <title>Minecraft特殊符号</title>
     <style>
         :root {
@@ -40,7 +40,7 @@
             width: 804px;
             margin: 16px auto;
             padding: 4px;
-                border-image-source: url("../images/container.png");
+                border-image-source: url("./images/container.png");
         border-image-slice: 4 4 4 4 fill;
         border-width: 8px 8px 8px 8px;
         border-style: solid;
@@ -71,7 +71,7 @@
             width: 804px;
             margin: 16px auto;
             padding: 4px;
-                border-image-source: url("../images/container.png");
+                border-image-source: url("./images/container.png");
         border-image-slice: 4 4 4 4 fill;
         border-width: 8px 8px 8px 8px;
         border-style: solid;
@@ -158,7 +158,7 @@
   font-family: 'MyFont';
   src: 
     url('https://cdn.jsdelivr.net/npm/unifont-js@latest/dist/unifont.woff2') format('woff2'), /* 现代浏览器优先 */
-    url('../fonts/unifont.otf') format('opentype'); /* 兼容备用 */
+    url('./fonts/unifont.otf') format('opentype'); /* 兼容备用 */
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -182,7 +182,7 @@ body {
     <div id="notification">已复制到剪贴板！</div>
     <div class="serchboxcontainer">
         <a href="https://github.com/Cyaniuu/glyph" class="me">Cyaniuu</a>
-        <a href="../res/VanillaItemfontpack.mcpack" class="download">下载资源包</a>
+        <a href="./res/VanillaItemfontpack.mcpack" class="download">下载资源包</a>
 
     </div>
     
@@ -193,56 +193,56 @@ const LIBRARIES = [
         title: "F0",
         unicodeStart: 0xF000,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F0.png",
+        imagePath: "./server-glyphs/glyph_F0.png",
         specialTexts: {0: "合金欢门下部分",1: "合金欢门上部分",2: "和金欢树叶",3: "合金欢原木侧面",4: "合金欢原木上面",5: "合金欢木板",6: "合金欢树苗",7: "合金欢活版门",8: "激活铁轨",9: "已激活的激活铁轨",10: "绒球葱",11: "紫水晶块",12: "紫水晶簇",13: "远古残骸",14: "远古残骸上面",15: "安山岩",16: "",17: "",18: "垂滴叶根部",19: "垂滴叶尖",20: "垂滴叶",21: "白桦木门下部分",22: "白桦木门上部分",23: "白桦树叶",24: "白桦树原木",25: "白桦树原木上面",26: "白桦木板",27: "白桦树苗",28: "白桦木活版门",29: "黑石",30: "黑石",31: "",32: "气泡珊瑚扇",33: "紫水晶母岩",34: "仙人掌下面",35: "仙人掌侧面",36: "仙人掌上面",37: "蛋糕下面",38: "蛋糕被吃了的面",39: "蛋糕侧面",40: "蛋糕上面",41: "方解石",42: "篝火火焰",43: "篝火",44: "篝火",45: "蜡烛",46: "蜡烛",47: "",48: "命令方块",49: "命令方块",50: "命令方块",51: "红石比较器",52: "已激活的红石比较器",53: "堆肥桶下面",54: "堆肥桶内部",55: "堆肥桶内部有肥",56: "堆肥桶侧面",57: "堆肥桶上面",58: "",59: "铜块",60: "铜矿石",61: "矢车菊",62: "裂纹深板岩砖",63: "裂纹深板岩瓦",64: "失活珊瑚",65: "失活珊瑚",66: "失活珊瑚",67: "枯萎的灌木",68: "失活珊瑚",69: "失活珊瑚",70: "失活珊瑚",71: "失活珊瑚",72: "失活珊瑚",73: "失活珊瑚",74: "失活珊瑚",75: "失活珊瑚",76: "失活珊瑚",77: "",78: "",79: "深板岩",80: "末地石砖",81: "斑驳的铜块",82: "斑驳的切制铜块",83: "耕地",84: "湿润的耕地",85: "蕨",86: "火焰",87: "火焰",88: "火珊瑚",89: "火珊瑚块",90: "火珊瑚扇",91: "制箭台前面",92: "制箭台侧面",93: "制箭台上面",94: "杜鹃花树叶",95: "杜鹃花树苗",96: "",97: "",98: "干草块侧面",99: "干草块上面",100: "蜜脾块",101: "蜜块外层",102: "蜜块",103: "蜜块",104: "炼药锅下面",105: "炼药锅侧面",106: "炼药锅上面",107: "鹿角珊瑚",108: "鹿角珊瑚块",109: "鹿角珊瑚扇",110: "冰",111: "铁栏杆",112: "淡蓝色羊毛",113: "",114: "",115: "淡灰色混凝土",116: "淡灰色混凝土粉末",117: "淡灰色带釉陶瓦",118: "淡灰色潜影盒",119: "淡灰色玻璃",120: "淡灰色玻璃板",121: "淡灰色陶瓦",122: "淡灰色羊毛",123: "丁香花下部分",124: "丁香花上部分",125: "铃兰",126: "睡莲",127: "",128: "蘑菇块",129: "蘑菇柄",130: "菌丝体",131: "菌丝体上面",132: "合金块",133: "下届岩",134: "下届砖块",135: "下届金矿石",136: "地狱门",137: "石英矿石",}
     },
     {
         title: "F1",
         unicodeStart: 0xF100,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F1.png",
+        imagePath: "./server-glyphs/glyph_F1.png",
         specialTexts: {255: ""}
     },
     {
         title: "F2",
         unicodeStart: 0xF200,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F2.png",
+        imagePath: "./server-glyphs/glyph_F2.png",
         specialTexts: {0: "", 1: ""}
     },
     {
         title: "F3",
         unicodeStart: 0xF300,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F3.png",
+        imagePath: "./server-glyphs/glyph_F3.png",
         specialTexts: {}
     },
     {
         title: "F4",
         unicodeStart: 0xF400,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F4.png",
+        imagePath: "./server-glyphs/glyph_F4.png",
         specialTexts: {}
     },
     {
         title: "F5",
         unicodeStart: 0xF500,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F5.png",
+        imagePath: "./server-glyphs/glyph_F5.png",
         specialTexts: {9: ""}
     },
     {
         title: "F6",
         unicodeStart: 0xF600,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F6.png",
+        imagePath: "./server-glyphs/glyph_F6.png",
         specialTexts: {}
     },
     {
         title: "F7",
         unicodeStart: 0xF700,
         gridSize: 16,
-        imagePath: "../server-glyphs/glyph_F7.png",
+        imagePath: "./server-glyphs/glyph_F7.png",
         specialTexts: {0: ""}
     }
 ];
